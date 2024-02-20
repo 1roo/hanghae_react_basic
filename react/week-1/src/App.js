@@ -2,49 +2,33 @@ import { useState } from 'react';
 import "./App.css";
 
 function App() {
-  /*
-    //hook
-    // const [state, setState] = useState('initial Value');
-    const [count, setCount] = useState(0);
-    const [todoList, setTodoList] = useState([]);
   
-    //useState, useEffect, useContext, useMemo
-    //useDispatch, useSelect...
-  
-    return (
-      <div>STATE에 대한 이야기입니다.</div>
-    )
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+
+  function clickHandler() {
+    alert(`고객님이 입력하신 아이디는 ${id}이며, 비밀번호는 ${pw}입니다.`);
+    setId("");
+    setPw("");
   }
-  */
-
-  /*
-  const [name, setName] = useState('김할아버지');
 
   return (
     <div>
-      {name}
-      <br />
-      <button onClick={function() {
-        setName('박할머니');
-      }}>클릭</button>
-    </div>
-  );
-}
-*/
-
-  const [fruit, setFruit] = useState("");
-
-  return (
-    <div>
-      과일: <input
-        value={fruit}
+      아이디: <input
+        value={id}
         onChange={function (event) {
-          console.log('event: ', event.target.value);
-          setFruit(event.target.value);
+          setId(event.target.value);
         }}
       />
-      <br /><br />
-      {fruit}
+      <br />
+      비밀번호: <input type='password'
+        value={pw}
+        onChange={function (event) {
+          setPw(event.target.value);
+        }}
+      />
+      <br />
+      <button onClick={clickHandler}>로그인</button>
     </div>
   )
 
