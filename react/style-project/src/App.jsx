@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { Children, useState } from "react";
 import './App.css';
+import Button from "./components/Button";
+import User from "./components/User";
 
 const App = () => {
   // const users = [
@@ -58,7 +60,7 @@ const App = () => {
             setAge(event.target.value)
           }} />
         <br />
-        <button onClick={clickAddButtonHandler}>추가</button>
+        <Button clickAddButtonHandler={clickAddButtonHandler}>추가</Button>
       </div>
       <div className="app-style">
         {users.map(function (item) {
@@ -75,13 +77,17 @@ const App = () => {
     <div className="component-style">{users[3].age} - {users[3].name}</div> */}
 };
 
-const User = ({item, clickDeleteButtonHandler}) => {
-  return (
-    <div key={item.id} className="component-style">
-      {item.age} - {item.name}
-      <button onClick={() => clickDeleteButtonHandler(item.id)}>X</button>
-    </div>
-  )
-};
+// const Button = ({clickAddButtonHandler, children}) => {
+//   return <button onClick={clickAddButtonHandler}>{children}</button>
+// };
+
+// const User = ({item, clickDeleteButtonHandler}) => {
+//   return (
+//     <div key={item.id} className="component-style">
+//       {item.age} - {item.name}
+//       <button onClick={() => clickDeleteButtonHandler(item.id)}>X</button>
+//     </div>
+//   )
+// };
 
 export default App;
