@@ -1,53 +1,87 @@
-import React from "react";
+import React, { useState } from "react";
 import './App.css';
 
-function App() {
-  // const style = {
-  //   padding: "100px",
-  //   display: "flex",
-  //   gap: "12px",
-  // }
+const App = () => {
+  // const users = [
+  //   { id: 1, age: 30, name: "송중기" },
+  //   { id: 2, age: 24, name: "송강" },
+  //   { id: 3, age: 21, name: "김유정" },
+  //   { id: 4, age: 29, name: "구교환" },
+  // ];
 
-  // const squareStyle = {
-  //   width: "100px",
-  //   height: "100px",
-  //   border: "1px solid green",
-  //   borderRadius: "10px",
-  //   display: "flex",
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  // }
+  const [users, setUsers] = useState([
+    { id: 1, age: 30, name: "송중기" },
+    { id: 2, age: 24, name: "송강" },
+    { id: 3, age: 21, name: "김유정" },
+    { id: 4, age: 29, name: "구교환" },
+  ]);
 
-  const testArr = ['감자', '고구마', '오이', '가지', '옥수수']
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+
+  //적용할 때 인자(event, 변수 등)를 넘기는 경우 꼭 (event)로 앞에 묶어줘야 바로 실행 안 된다.
+  //넘기는게 event 하나일 경우는 onChange={함수명}만 적어도 자동으로 넘어간다.
+  const nameChangeHandler = (event) => {
+    setName(event.target.value);
+  }
+
+
+  const clickAddButtonHandler = () => {
+    //1. 새로운 형태의 newUser을 만든다. newUser: { id: 1, age: 30, name: "송중기" },
+    //2. newUser를 배열에 더한다.
+    const newUser = {
+      id: users.length + 1,
+      age,
+      name,
+    }
+    setUsers([...users, newUser])
+  }
+
+  const clickDeleteButtonHandler = (id) => {
+    // const newUsers = users.filter(user => user.id !== id);
+    const newUsers = users.filter(function (user) {
+      return user.id !== id;
+    });
+    setUsers(newUsers);
+  }
+
 
   return (
-    <div className="app-style">
-      {/* {testArr.map(function (item) {
-        return <div className="component-style">{item}</div>
-      })} */}
-
-      {/* {testArr.map((item) => {
-        return <div className="component-style">{item}</div>
-      })} */}
-
-      {testArr.filter(function (item) {
-        return item !== "오이";
-      })
-      .map(function (item) {
-        return <div className="component-style">{item}</div>
-      })}
+    <div>
+      <div>
+        이름: <input
+          value={name}
+          onChange={(event) => nameChangeHandler(event)} /> <br />
+        나이: <input
+          value={age}
+          onChange={(event) => {
+            setAge(event.target.value)
+          }} />
+        <br />
+        <button onClick={clickAddButtonHandler}>추가</button>
+      </div>
+      <div className="app-style">
+        {users.map(function (item) {
+          return <User key={item.id} item={item} clickDeleteButtonHandler={clickDeleteButtonHandler}/>
+        })}
+      </div>
     </div>
+  )
 
 
+  {/* <div className="component-style">{users[0].age} - {users[0].name}</div>
+    <div className="component-style">{users[1].age} - {users[1].name}</div>
+    <div className="component-style">{users[2].age} - {users[2].name}</div>
+    <div className="component-style">{users[3].age} - {users[3].name}</div> */}
+};
 
-    // <div className = "app-style">
-    //   <div className = "component-style">감자</div>
-    //   <div className = "component-style">고구마</div>
-    //   <div className = "component-style">오이</div>
-    //   <div className = "component-style">가지</div>
-    //   <div className = "component-style">옥수수</div>
-    // </div>
-  );
-}
+const User = ({item, clickDeleteButtonHandler}) => {
+  return (
+    <div key={item.id} className="component-style">
+      {item.age} - {item.name}
+      <button onClick={() => clickDeleteButtonHandler(item.id)}>X</button>
+    </div>
+  )
+};
 
 export default App;
