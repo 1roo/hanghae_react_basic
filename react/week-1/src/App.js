@@ -1,36 +1,40 @@
-import { useState } from 'react';
-import "./App.css";
+import React, { useState } from 'react';
+
+//원시데이터(number, string, boolean 등)는 불변성이 있다.
+//참조타입(배열, 객체 등)은 불변성이 없다.
 
 function App() {
+  let count = 0;
   
-  const [id, setId] = useState("");
-  const [pw, setPw] = useState("");
-
-  function clickHandler() {
-    alert(`고객님이 입력하신 아이디는 ${id}이며, 비밀번호는 ${pw}입니다.`);
-    setId("");
-    setPw("");
-  }
-
+  const [obj, setObj] = useState({
+    name: 'hanal',
+    age: 23,
+  });
   return (
     <div>
-      아이디: <input
-        value={id}
-        onChange={function (event) {
-          setId(event.target.value);
+        <div>{obj.name}</div>
+        <button onClick={() => {
+          obj.name = 'hanaru'
+          const obj2 = {...obj} //새로운 주소값에다 obj복사
+          setObj(obj2);
+          // obj.name = 'hanaru';
+          // console.log(obj);
+          // setObj(obj);
         }}
-      />
-      <br />
-      비밀번호: <input type='password'
-        value={pw}
-        onChange={function (event) {
-          setPw(event.target.value);
-        }}
-      />
-      <br />
-      <button onClick={clickHandler}>로그인</button>
+        >
+          변경!
+        </button>
+        <button
+        onClick={() => {
+          count++;
+          console.log(`count는 ${count} 입니다.`);
+        }}>
+          증가
+        </button>
+        {/* 콘솔에서는 숫자 증가하지만 화면에서는 증가X count는 불변성 => 리렌더링 안됨. */}
+        {count}
     </div>
   )
-
 }
-export default App;
+
+export default App
