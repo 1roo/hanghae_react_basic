@@ -1,0 +1,4 @@
+redux: 리덕스 관련 코드를 모두 몰아넣은 폴더
+config: 리덕스 설정 관련 파일 전부 폴더
+configStore: 중앙 state 관리소 -> 와 관련된 설정 코드(.js)
+modules: state의 그룹들 TodoList => todos.js
