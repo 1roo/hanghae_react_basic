@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { UseDispatch } from 'react-redux';
 import './App.css';
+import { PLUS_ONE, MINUS_ONE } from './redux/modules/counter';
+import { plusOne } from './redux/modules/counter';
 
 function App() {
 
@@ -21,13 +22,14 @@ function App() {
       <button onClick={()=>{
         //+1 해주는 로직 작성
         dispatch({
-          type: 'PLUS_ONE',
+          type: PLUS_ONE,
         })
       }}>+</button>
       <button onClick={()=>{
-        dispatch({
-          type: 'MINUS_ONE',
-        })
+        // dispatch({
+        //   type: MINUS_ONE,
+        // })
+        dispatch(plusOne());
       }}>-</button>
     </>
   );
