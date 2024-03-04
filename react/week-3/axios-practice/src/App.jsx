@@ -1,4 +1,5 @@
-import axios from "axios";
+// import axios from "axios";
+import api from './axios/api';
 import { useEffect, useState } from "react";
 
 function App() {
@@ -10,20 +11,21 @@ function App() {
   const [contents, setContents] = useState('');
 
   const fetchTodos = async () => {
-    const { data } = await axios.get("http://localhost:4000/todos")
+    // const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/todos`)
+    const { data } = await api.get("/todos")
     // console.log('data: ', data);
     setTodos(data);
   }
 
 
   const onSubmitHandler = async () => {
-    await axios.post("http://localhost:4000/todos", inputValue)
+    await api.post("/todos", inputValue)
     // setTodos([...todos, inputValue])
     fetchTodos();
   }
 
   const onDeleteButtonHandler = async (id) => {
-    axios.delete(`http://localhost:4000/todos/${id}`)
+    await api.delete(`/todos/${id}`)
     setTodos(todos.filter((item) => {
       return item.id !== id
     })
@@ -31,7 +33,7 @@ function App() {
   }
 
   const onUpdateButtonClickHandler = async () => {
-    axios.patch(`http://localhost:4000/todos/${targetId}`, {
+    await api.patch(`/todos/${targetId}`, {
       title: contents,
     })
 
